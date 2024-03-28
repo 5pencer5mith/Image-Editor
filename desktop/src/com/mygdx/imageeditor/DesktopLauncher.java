@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Image Editor");
+		config.setWindowedMode(584, 480);
 		System.out.println("Project made by: Spencer Smith and (?)");
 		new Lwjgl3Application(new ImageEditor(), config);
 	}

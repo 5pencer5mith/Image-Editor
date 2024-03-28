@@ -10,13 +10,15 @@ public class Rectangle2D {
 	public Vector2 Position;
 	public Vector2 Scale;
 	public Texture RecTexture;
+	public Vector2 Velocity;
 	private Pixmap _pixelMap;
 	private Color _recColor;
 	
-	public Rectangle2D (Vector2 position, Vector2 scale, Color color) {
+	public Rectangle2D (Vector2 position, Vector2 scale, Vector2 velocity, Color color) {
 		Position = position;
 		Scale = scale;
 		_recColor = color;
+		Velocity = velocity;
 		
 		generateTexture();
 	}
@@ -30,6 +32,11 @@ public class Rectangle2D {
 			}
 		}
 		RecTexture = new Texture(_pixelMap);
+	}
+	
+	public void changeColor(Color newColor) {
+		_recColor = newColor;
+		generateTexture();
 	}
 
 }
