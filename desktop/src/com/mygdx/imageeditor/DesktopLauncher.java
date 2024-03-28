@@ -9,7 +9,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
-		config.setTitle("ImageEditor");
+		config.setTitle("Image Editor");
+		System.out.println("Project made by: Spencer Smith and (?)");
 		new Lwjgl3Application(new ImageEditor(), config);
 	}
 }
