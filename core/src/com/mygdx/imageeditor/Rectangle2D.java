@@ -10,15 +10,13 @@ public class Rectangle2D {
 	public Vector2 Position;
 	public Vector2 Scale;
 	public Texture RecTexture;
-	public Vector2 Velocity;
 	private Pixmap _pixelMap;
 	private Color _recColor;
 	
-	public Rectangle2D (Vector2 position, Vector2 scale, Vector2 velocity, Color color) {
+	public Rectangle2D (Vector2 scale, Vector2 position, Color color) {
 		Position = position;
 		Scale = scale;
 		_recColor = color;
-		Velocity = velocity;
 		
 		generateTexture();
 	}
@@ -26,11 +24,13 @@ public class Rectangle2D {
 	private void generateTexture () {
 		_pixelMap  = new Pixmap((int)Scale.x, (int)Scale.y, Format.RGBA8888);
 		_pixelMap.setColor(_recColor);
+		
 		for (int x = 0; x < _pixelMap.getWidth(); x++) {
 			for (int y = 0; y < _pixelMap.getHeight(); y++) {
 				_pixelMap.drawPixel(x,y);
 			}
 		}
+		
 		RecTexture = new Texture(_pixelMap);
 	}
 	
