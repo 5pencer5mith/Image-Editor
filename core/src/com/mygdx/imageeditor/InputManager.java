@@ -9,9 +9,17 @@ import com.badlogic.gdx.utils.Array;
 
 public class InputManager implements InputProcessor {
 	
-	public Array<Button> Buttons = new Array<Button>();
+	public Array<IClickable> iclick = new Array<IClickable>();
 	
+	public Array<IHoverable> ihover = new Array<IHoverable>();
+	
+	public Array<Button> Buttons = new Array<Button>();
+
 	public static InputManager Instance;
+	
+	private IHoverable _hoveredButton;
+	
+	private IClickable _currentlyClicked;
 	
 	public InputManager() {
 		Instance = this;
@@ -40,15 +48,20 @@ public class InputManager implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
-		Button collision = CollisionManager.Instance.getCollision(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
-		if (collision != null) collision.onPressed();
 		
+		Vector2 worldPosition = new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY);
+		IClickable collision = CollisionManager.Instance.getClicked(worldPosition);
+		if (collision != null) collision.onClickDown(worldPosition);
+		
+		_currentlyClicked = collision;
 		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
+		if (_currentlyClicked != null) _currentlyClicked.onClickUp(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
+		
 		return false;
 	}
 
@@ -61,12 +74,20 @@ public class InputManager implements InputProcessor {
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		// TODO Auto-generated method stub
+		mouseMoved(screenX, screenY);
+		if(_currentlyClicked != null) _currentlyClicked.onClickDragged(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
 		return false;
 	}
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
 		// TODO Auto-generated method stub
+		IHoverable collision = CollisionManager.Instance.getHovered(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
+		if(collision != _hoveredButton && _hoveredButton != null) _hoveredButton.onHoverExit();
+		if(collision != null) collision.onHovered();
+		
+		_hoveredButton = collision;
+		
 		return true;
 	}
 

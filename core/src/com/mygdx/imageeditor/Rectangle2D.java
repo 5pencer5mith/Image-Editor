@@ -7,21 +7,22 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.math.Vector2;
 
 public class Rectangle2D {
+	
 	public Vector2 Position;
 	public Vector2 Scale;
 	public Texture RecTexture;
 	private Pixmap _pixelMap;
-	private Color _recColor;
+	protected Color _recColor;
 	
 	public Rectangle2D (Vector2 scale, Vector2 position, Color color) {
 		Position = position;
 		Scale = scale;
 		_recColor = color;
-		
 		generateTexture();
+		ImageEditor.Instance.Rectangles.add(this);
 	}
 	
-	private void generateTexture () {
+	public void generateTexture () {
 		_pixelMap  = new Pixmap((int)Scale.x, (int)Scale.y, Format.RGBA8888);
 		_pixelMap.setColor(_recColor);
 		
