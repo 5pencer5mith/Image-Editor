@@ -10,6 +10,7 @@ public class EditWindow extends Rectangle2D implements IClickable {
 	
 	public Texture DoodleTexture;
 	private Pixmap _doodleMap;
+	private Vector2 _previousPaintPosition;
 	
 	public EditWindow (Vector2 scale, Vector2 position, Color backgroundColor) {
 		super(scale, position, backgroundColor);
@@ -21,12 +22,15 @@ public class EditWindow extends Rectangle2D implements IClickable {
 	}
 	
 	public void onClickDown (Vector2 position) {
+		if (_previousPaintPosition == null) {
+			_previousPaintPosition = new Vector2(position.x - Position.x, Scale.y - position.y);
+		}
 		paintAtPosition(position);
 	}
 	
 	@Override
 	public void onClickUp(Vector2 mousePosition) {
-		
+		_previousPaintPosition = null;
 	}
 
 	@Override
@@ -37,7 +41,18 @@ public class EditWindow extends Rectangle2D implements IClickable {
 	}
 	
 	private void paintAtPosition(Vector2 worldPosition) {
-		_doodleMap.drawPixel((int) (worldPosition.x - Position.x), (int) (Scale.y - worldPosition.y));
+		Vector2 paintPosition = new Vector2(worldPosition.x - Position.x, Scale.y - worldPosition.y);
+		int startX = (int) _previousPaintPosition.x;
+		int startY = (int) _previousPaintPosition.y;
+		int endX = (int) paintPosition.x;
+		int endY = (int) paintPosition.y;
+		_doodleMap.drawLine(startX, startY, endX, endY);
+		_doodleMap.drawLine(startX + 1, startY, endX + 1, endY);
+		_doodleMap.drawLine(startX - 1, startY, endX - 1, endY);
+		_doodleMap.drawLine(startX, startY + 1, endX, endY + 1);
+		_doodleMap.drawLine(startX, startY - 1, endX, endY - 1);
+		
+		_previousPaintPosition = paintPosition;
 		DoodleTexture = new Texture(_doodleMap);
 	}
 

@@ -30,7 +30,8 @@ public class ImageEditor extends ApplicationAdapter {
 		InputManager inputManager = new InputManager();
 		Gdx.input.setInputProcessor(inputManager);
 		
-		
+		new ImageInputOutput();
+		Pixmap editMap = ImageInputOutput.Instance.loadImage("blackbuck-1.bmp");
 		
 		Vector2 editWindowSize = new Vector2(500, ScreenSize.y - 40);
 		_editWindow = new EditWindow(editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0), Color.GRAY);
@@ -38,6 +39,8 @@ public class ImageEditor extends ApplicationAdapter {
 		Button butt = new Button(new Vector2(50, 50), Vector2.Zero, Color.CORAL);
 		
 		CollisionManager collisionManager = new CollisionManager();
+		
+		_editWindow.DoodleTexture = new Texture(editMap);
 		
 	}
 

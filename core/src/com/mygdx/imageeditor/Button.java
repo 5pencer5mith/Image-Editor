@@ -12,8 +12,6 @@ public class Button extends Rectangle2D implements IClickable, IHoverable {
 	
 	public Button(Vector2 scale, Vector2 position, Color recColor) {
 		super(scale, position, recColor);
-		
-		InputManager.Instance.Buttons.add(this);
 		_startColor = recColor;
 		_currentState = ButtonState.None;
 		InputManager.Instance.iclick.add(this);
@@ -26,11 +24,11 @@ public class Button extends Rectangle2D implements IClickable, IHoverable {
 		generateTexture();
 	}
 	
-	public void onClickUp() {
-		_currentState = ButtonState.Hovered;
-		_recColor = new Color(_startColor.r / 2f, _startColor.g / 2f, _startColor.b / 2f, 1);
-		generateTexture();
-	}
+//	public void onClickUp() {
+//		_currentState = ButtonState.Hovered;
+//		_recColor = new Color(_startColor.r / 2f, _startColor.g / 2f, _startColor.b / 2f, 1);
+//		generateTexture();
+//	}
 	
 	public void onHovered() {
 		if (_currentState == ButtonState.Clicked) return; 
@@ -53,6 +51,8 @@ public class Button extends Rectangle2D implements IClickable, IHoverable {
 	@Override
 	public void onClickUp(Vector2 mousePosition) {
 		// TODO Auto-generated method stub
-		
+		_currentState = ButtonState.Hovered;
+		_recColor = new Color(_startColor.r / 2f, _startColor.g / 2f, _startColor.b / 2f, 1);
+		generateTexture();
 	}
 }
