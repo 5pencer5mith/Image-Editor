@@ -24,12 +24,6 @@ public class Button extends Rectangle2D implements IClickable, IHoverable {
 		generateTexture();
 	}
 	
-//	public void onClickUp() {
-//		_currentState = ButtonState.Hovered;
-//		_recColor = new Color(_startColor.r / 2f, _startColor.g / 2f, _startColor.b / 2f, 1);
-//		generateTexture();
-//	}
-	
 	public void onHovered() {
 		if (_currentState == ButtonState.Clicked) return; 
 		_recColor = new Color(_startColor.r / 2f, _startColor.g / 2f, _startColor.b / 2f, 1);

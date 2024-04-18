@@ -1,5 +1,6 @@
 package com.mygdx.imageeditor;
 
+import java.io.IOException;
 import java.util.Random;
 
 import javax.naming.ReferralException;
@@ -19,11 +20,12 @@ public class ImageEditor extends ApplicationAdapter {
 	public static ImageEditor Instance;
 	public Vector2 ScreenSize;
 	public Array<Rectangle2D> Rectangles = new Array<Rectangle2D>();
-	public EditWindow _editWindow;
-	SpriteBatch batch;
+	private EditWindow _editWindow;
+	private SpriteBatch batch;
 	
 	@Override
 	public void create () {
+		Util.testIntToSignedBytes();
 		Instance = this;
 		batch = new SpriteBatch();
 		ScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -31,16 +33,13 @@ public class ImageEditor extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(inputManager);
 		
 		new ImageInputOutput();
-		Pixmap editMap = ImageInputOutput.Instance.loadImage("blackbuck-1.bmp");
 		
 		Vector2 editWindowSize = new Vector2(500, ScreenSize.y - 40);
-		_editWindow = new EditWindow(editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0), Color.GRAY);
+		_editWindow = new EditWindow(editWindowSize, new Vector2(ScreenSize.x - editWindowSize.x, 0));
 		
 		Button butt = new Button(new Vector2(50, 50), Vector2.Zero, Color.CORAL);
 		
 		CollisionManager collisionManager = new CollisionManager();
-		
-		_editWindow.DoodleTexture = new Texture(editMap);
 		
 	}
 
@@ -63,5 +62,12 @@ public class ImageEditor extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
+	}
+	
+	public void filesImported (String[] filePaths) {
+		Pixmap map = ImageInputOutput.Instance.loadImage(filePaths[0]);
+		if (map == null) return;
+		
+		_editWindow.RecTexture = new Texture(map);
 	}
 }

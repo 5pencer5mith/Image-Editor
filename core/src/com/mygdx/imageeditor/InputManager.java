@@ -1,7 +1,10 @@
 package com.mygdx.imageeditor;
 
 
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
@@ -21,6 +24,8 @@ public class InputManager implements InputProcessor {
 	
 	private IClickable _currentlyClicked;
 	
+	private boolean _controlPressed;
+	
 	public InputManager() {
 		Instance = this;
 	}
@@ -30,12 +35,19 @@ public class InputManager implements InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
+		if (keycode == Keys.CONTROL_LEFT) System.out.println("You pressed Control!");
+		if (_controlPressed && keycode == Keys.S) {
+			try {ImageInputOutput.Instance.saveImage("/Users/spencersmith/Desktop/output.bmp");}
+			catch (IOException e) {e.printStackTrace();}
+		}
+		if (keycode == Keys.CONTROL_LEFT) _controlPressed = true;
 		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
 		// TODO Auto-generated method stub
+		if (keycode == Keys.CONTROL_LEFT) _controlPressed = false;
 		return false;
 	}
 
