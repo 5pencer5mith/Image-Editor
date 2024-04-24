@@ -1,11 +1,17 @@
-package com.mygdx.imageeditor;
+package com.mygdx.buttons;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.imageeditor.Rectangle2D;
+
+import Utility.IClickable;
+import Utility.IHoverable;
+import Utility.InputManager;
 
 public class Button extends Rectangle2D implements IClickable, IHoverable {
 	
-	private Color _startColor;
+	protected Color _startColor;
+	public String ButtonText;
 	
 	public enum ButtonState {Clicked, Hovered, None};
 	private ButtonState _currentState;

@@ -1,4 +1,4 @@
-package com.mygdx.imageeditor;
+package Utility;
 
 
 import java.io.IOException;
@@ -9,6 +9,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.buttons.Button;
+import com.mygdx.imageeditor.ImageEditor;
 
 public class InputManager implements InputProcessor {
 	
@@ -37,7 +39,8 @@ public class InputManager implements InputProcessor {
 		// TODO Auto-generated method stub
 		if (keycode == Keys.CONTROL_LEFT) System.out.println("You pressed Control!");
 		if (_controlPressed && keycode == Keys.S) {
-			try {ImageInputOutput.Instance.saveImage("/Users/spencersmith/Desktop/output.bmp");}
+			if (ImageInputOutput.Instance.imageFolderLocation == null) return true;
+			try {ImageInputOutput.Instance.saveImage(ImageInputOutput.Instance.imageFolderLocation + "/output.bmp");}
 			catch (IOException e) {e.printStackTrace();}
 		}
 		if (keycode == Keys.CONTROL_LEFT) _controlPressed = true;
@@ -98,7 +101,7 @@ public class InputManager implements InputProcessor {
 		IHoverable collision = CollisionManager.Instance.getHovered(new Vector2(screenX, ImageEditor.Instance.ScreenSize.y - screenY));
 		if(collision != _hoveredButton && _hoveredButton != null) _hoveredButton.onHoverExit();
 		if(collision != null) collision.onHovered();
-		
+		if (collision != _hoveredButton) _currentlyClicked = null;
 		_hoveredButton = collision;
 		
 		return true;

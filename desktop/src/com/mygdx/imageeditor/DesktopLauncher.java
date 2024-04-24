@@ -12,6 +12,7 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setTitle("Image Editor");
 		config.setWindowedMode(584, 480);
+		config.setResizable(false);
 		System.out.println("Project made by: Spencer Smith and (?)");
 		ImageEditor editor = new ImageEditor();
 		config.setWindowListener(new Lwjgl3WindowAdapter() {
