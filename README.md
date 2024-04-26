@@ -1,1 +1,1 @@
-This is a very simple .bmp specific image editor created as part of a project for a computer science course at SUU. You can load images using drag and drop, doodle on them, and re-save the image. The .jar file runs on windows machines only.
+This is a very simple, .bmp specific, image editor that was created as part of a project for a computer science course at SUU. You can load images using a drag and drop feature, doodle on them, and re-save the image. The .jar file runs on windows machines only.
